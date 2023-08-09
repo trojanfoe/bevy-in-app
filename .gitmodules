@@ -1,0 +1,4 @@
+[submodule "iOS/xcodedevtools"]
+	path = iOS/xcodedevtools
+	url = https://github.com/trojanfoe/xcodedevtools
+	branch = master

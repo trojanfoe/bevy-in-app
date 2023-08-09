@@ -11,19 +11,19 @@ This repository implements such a scenario and uses the phone's motion sensor to
 | ![Bevy in iOS App](assets/bevy_in_ios.png) | ![Bevy in Android App](assets/bevy_in_android.png) |
 | ------------------------------------------ | -------------------------------------------------- |
 
-## **iOS**
+## Development and Building
 
-```sh
-# Add iOS target
-rustup target add aarch64-apple-ios
+Two python scripts are provided to help during developing and building.
 
-# Build for iOS target
-sh ./ios_build.sh --release
-```
+### config.py
 
-Then, Open `iOS/bevy_in_iOS.xcodeproj` with Xcode，connect an iOS device and run.
+This script will configure the `.cargo/config.toml` file with the correct settings to build for iOS, Android or native using just `cargo build --lib`.  As an added bonus any IDEs you use (tested with CLion and VSCode) will also pick-up these settings and it will allow them to highlight any code that is protected by target- or arch-`#[cfg(...)]` statements.
 
-## **Android**
+### build.py
+
+This script is designed to be called from Xcode or Android Studio to build the game library as a dependency.
+
+## Android Set-up
 
 ### Set up Android environment
 
@@ -31,30 +31,10 @@ Assuming your computer already has Android Studio installed, go to `Android Stud
 
 - [x] Android SDK Build-Tools
 - [x] Android SDK Command-line Tools
-- [x] NDK(Side by side)
+- [x] NDK (Side by side)
 
-Then, set two following environment variables:
-
-```sh
-export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
-# Replace the NDK version number with the version you installed
-export NDK_HOME=$ANDROID_SDK_ROOT/ndk/23.1.7779620
-```
-
-### Add build targets
+Then, set the following environment variable:
 
 ```sh
-# Since simulator and virtual devices only support GLES,
-# `x86_64-linux-android` and `i686-linux-android` targets are not necessary
-rustup target add aarch64-linux-android
-```
-
-### Build
-
-```sh
-# Install cargo-so subcommand
-cargo install cargo-so
-
-# Build
-sh ./android_build.sh --release
+export NDK_HOME=/path/to/android_sdk/ndk/23.1.7779620
 ```
